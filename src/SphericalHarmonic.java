@@ -56,18 +56,15 @@ class SphericalHarmonic {
         if (absm%2==1) sign=-1.0;
         else sign=1.0;
         Legendre P = new Legendre(l,absm);
-        Complex retval = new Complex(0.0,(double)absm*phi);
-        retval=retval.exp();
+        Complex retval = new Complex(Math.cos((double)absm*phi),Math.sin((double)absm*phi));
         double factor=sign*
             Math.sqrt((double)(2*l+1)/(4.0*Math.PI)*
-            MathLib.factorial(l-m)/MathLib.factorial(l+m))*
+            MathLib.factorial(l-absm)/MathLib.factorial(l+absm))*
             P.eval(Math.cos(theta));
         retval=retval.multiply(factor);
         
-        if (m<0) {
-            retval=retval.conjugate();
-            retval=retval.multiply(sign);
-        }
+        if (m<0) retval = retval.conjugate().multiply(sign);
+
         return retval;
     }
 }
