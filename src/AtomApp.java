@@ -32,7 +32,7 @@ public class AtomApp extends JFrame {
     public AtomApp() {
         super("Атом Водорода");      // заголовок окна
         setContentPane(this.pnlMain); // область с содержимым формы (панель pnlMain)
-        setBounds(-1000, 100, 800, 800);    // размер и положение окна
+        setBounds(100, 100, 800, 800);    // размер и положение окна
         // при закрытии окна EXIT_ON_CLOSE завершит приложение (процесс)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -59,11 +59,11 @@ public class AtomApp extends JFrame {
                 phi = j*angle_step;
                 Y = (float)Ylm.eval(theta,phi).getReal();   // вещественная часть
                 //Y = (float)Ylm.eval(theta, phi).abs();    // модуль
-                x = (float)(Y*sin(theta)*cos(phi));         // перевод из
-                y = (float)(Y*sin(theta)*sin(phi));             // полярных координат
+                x = (float)(Y*sin(theta)*cos(phi)); // перевод из
+                y = (float)(Y*sin(theta)*sin(phi));         // полярных координат
                 z = (float)(Y*cos(theta));                          // в декартовы
                 points[index] = new Coord3d(x, y, z);
-                a = 0.5f;
+                a = 0.5f; // прозрачность
                 if (Y < 0) colors[index] = new Color(1, 0, 0, a);
                 else colors[index] = new Color(0, 0, 1, a);
                 index++;
@@ -73,8 +73,6 @@ public class AtomApp extends JFrame {
         Scatter scatter = new Scatter(points, colors);
 
         Chart chart = AWTChartComponentFactory.chart(Quality.Advanced, "swing");
-
-        //chart.addMouseCameraController();
         chart.add(scatter);
         chart.getView().setBoundManual(new BoundingBox3d(new Coord3d(0,0,0),1.0F));
         chart.getView().setViewPoint(new Coord3d(
