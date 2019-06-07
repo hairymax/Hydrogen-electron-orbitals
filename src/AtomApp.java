@@ -4,6 +4,7 @@ import org.jzy3d.colors.*;
 import org.jzy3d.colors.Color;
 import org.jzy3d.colors.colormaps.ColorMapRainbow;
 import org.jzy3d.maths.BoundingBox3d;
+import org.jzy3d.maths.Coord2d;
 import org.jzy3d.maths.Coord3d;
 import org.jzy3d.maths.Range;
 import org.jzy3d.plot3d.builder.*;
@@ -14,6 +15,8 @@ import org.jzy3d.plot3d.rendering.canvas.Quality;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.lang.Math.*;
 
 import static java.lang.Math.*;
@@ -33,13 +36,7 @@ public class AtomApp extends JFrame {
         // при закрытии окна EXIT_ON_CLOSE завершит приложение (процесс)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        double L; //проверка полиномов Лежандра
-        for(int i=0; i<5; i++){
-            L = new Legendre(i,0).eval(0);
-            txtResult.setText(txtResult.getText() + i + ":" + L + ", ");
-        }
-
-        int l = 3; // квантовые числа
+        int l = 2; // квантовые числа
         int m = 1; // TODO надо реализовать возможность выбирать пользователю
 
         SphericalHarmonic Ylm = new SphericalHarmonic(l,m);
@@ -49,8 +46,8 @@ public class AtomApp extends JFrame {
         int splits_count = 180; // число разбиений интервала углов от 0 до PI
         float angle_step = (float) PI/splits_count;
         int size = 2*splits_count*(splits_count+1); // число точек для построения
-        float x, y, z;
-        float a;
+        float x, y, z;      // координаты
+        float a;            // прозрачность
 
         Coord3d[] points = new Coord3d[size];
         Color[]   colors = new Color[size];
@@ -62,11 +59,11 @@ public class AtomApp extends JFrame {
                 phi = j*angle_step;
                 Y = (float)Ylm.eval(theta,phi).getReal();   // вещественная часть
                 //Y = (float)Ylm.eval(theta, phi).abs();    // модуль
-                x = (float)(Y*sin(theta)*cos(phi)); // перевод из
-                y = (float)(Y*sin(theta)*sin(phi));         // полярных координат
+                x = (float)(Y*sin(theta)*cos(phi));         // перевод из
+                y = (float)(Y*sin(theta)*sin(phi));             // полярных координат
                 z = (float)(Y*cos(theta));                          // в декартовы
                 points[index] = new Coord3d(x, y, z);
-                a = 0.5f; // прозрачность
+                a = 0.5f;
                 if (Y < 0) colors[index] = new Color(1, 0, 0, a);
                 else colors[index] = new Color(0, 0, 1, a);
                 index++;
@@ -76,12 +73,35 @@ public class AtomApp extends JFrame {
         Scatter scatter = new Scatter(points, colors);
 
         Chart chart = AWTChartComponentFactory.chart(Quality.Advanced, "swing");
+
+        //chart.addMouseCameraController();
         chart.add(scatter);
         chart.getView().setBoundManual(new BoundingBox3d(new Coord3d(0,0,0),1.0F));
+        chart.getView().setViewPoint(new Coord3d(
+                Math.toRadians(45),     // поворот отностительно оси z
+                Math.toRadians(30),     // наклон оси z
+                0));
 
         pnlChart.setPreferredSize(new Dimension(600, 600)); // размер по умолчанию для графика
         pnlChart.setLayout(new java.awt.BorderLayout());
         pnlChart.add((JPanel)chart.getCanvas(), BorderLayout.CENTER);
+
+        // поворот графика при перемещении мыши после клика в области графика
+        pnlChart.addMouseMotionListener(new MouseMotionAdapter() {
+            int x = pnlChart.getWidth()/2;
+            int y = pnlChart.getHeight()/2;
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                float dx = (float) toRadians(signum(e.getX() - x));
+                float dy = (float) toRadians(signum(e.getY() - y));
+                x = e.getX();
+                y = e.getY();
+                txtResult.setText(x + ", " + y + ";      " + dx + ", " + dy);
+                chart.getView().rotate(new Coord2d(dx, dy), true);
+                //setViewPoint(new Coord3d(rotX, rotY, 0), true);
+            }
+        });
     }
 
     public static void main(String[] args) { // основной метод - main, обязателен
@@ -94,29 +114,3 @@ public class AtomApp extends JFrame {
         // TODO: place custom component creation code here
     }
 }
-
-/*  хай тут будет, может быть пригодится
-    // Define a function to plot
-          Mapper mapper = new Mapper() {
-            public double f(double x, double y) {
-
-                SphericalHarmonic Ylm = new SphericalHarmonic(l,m);
-                return Ylm.eval(x*Math.PI/180, y*Math.PI/180).getReal();
-            }
-        };
-
-    // Define range and precision for the function to plot
-        Range range = new Range(0, 360);
-        int steps = 50;
-
-    // Create a surface drawing that function
-        Shape surface = Builder.buildOrthonormal(new OrthonormalGrid(range, steps), mapper);
-        surface.setColorMapper(new ColorMapper(new ColorMapRainbow(), new Range(-1, 1)));
-        surface.setFaceDisplayed(true);
-        surface.setWireframeDisplayed(false);
-        surface.setWireframeColor(Color.BLACK);
-
-    // Create a chart and add the surface
-        Chart chart = AWTChartComponentFactory.chart(Quality.Advanced, "swing");
-        chart.add(surface);
-//*/
