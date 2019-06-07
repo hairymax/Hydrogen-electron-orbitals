@@ -29,7 +29,7 @@ public class AtomApp extends JFrame {
     public AtomApp() {
         super("Атом Водорода");      // заголовок окна
         setContentPane(this.pnlMain); // область с содержимым формы (панель pnlMain)
-        setBounds(-1000, 100, 800, 800);    // размер и положение окна
+        setBounds(100, 100, 800, 800);    // размер и положение окна
         // при закрытии окна EXIT_ON_CLOSE завершит приложение (процесс)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -39,7 +39,7 @@ public class AtomApp extends JFrame {
             txtResult.setText(txtResult.getText() + i + ":" + L + ", ");
         }
 
-        int l = 3; // квантовые числа
+        int l = 2; // квантовые числа
         int m = 1; // TODO надо реализовать возможность выбирать пользователю
 
         SphericalHarmonic Ylm = new SphericalHarmonic(l,m);
@@ -55,7 +55,7 @@ public class AtomApp extends JFrame {
         Coord3d[] points = new Coord3d[size];
         Color[]   colors = new Color[size];
         int index = 0;
-        float start_theta = (l%2==1) ? -(float)PI/2 : 0; // для нечётных l смещаем начало интервала для угла theta
+        float start_theta = (l%2==1) ? 0 : 0; // -(float)PI/2 для нечётных l смещаем начало интервала для угла theta
         for(int i=0; i<=splits_count; i++){ // цикл по theta
             theta = start_theta + i*angle_step;
             for(int j=0; j<2*splits_count; j++) { // цикл по phi
@@ -78,6 +78,10 @@ public class AtomApp extends JFrame {
         Chart chart = AWTChartComponentFactory.chart(Quality.Advanced, "swing");
         chart.add(scatter);
         chart.getView().setBoundManual(new BoundingBox3d(new Coord3d(0,0,0),1.0F));
+        chart.getView().setViewPoint(new Coord3d(
+                Math.toRadians(45),
+                Math.toRadians(30),
+                0),true);
 
         pnlChart.setPreferredSize(new Dimension(600, 600)); // размер по умолчанию для графика
         pnlChart.setLayout(new java.awt.BorderLayout());
