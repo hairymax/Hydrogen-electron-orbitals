@@ -99,7 +99,6 @@ public class AtomApp extends JFrame {
                 y = e.getY();
                 txtResult.setText(x + ", " + y + ";      " + dx + ", " + dy);
                 chart.getView().rotate(new Coord2d(dx, dy), true);
-                //setViewPoint(new Coord3d(rotX, rotY, 0), true);
             }
         });
     }
