@@ -1,16 +1,10 @@
 import org.jzy3d.chart.Chart;
 import org.jzy3d.chart.factories.AWTChartComponentFactory;
-import org.jzy3d.colors.*;
 import org.jzy3d.colors.Color;
-import org.jzy3d.colors.colormaps.ColorMapRainbow;
 import org.jzy3d.maths.BoundingBox3d;
 import org.jzy3d.maths.Coord2d;
 import org.jzy3d.maths.Coord3d;
-import org.jzy3d.maths.Range;
-import org.jzy3d.plot3d.builder.*;
-import org.jzy3d.plot3d.builder.concrete.OrthonormalGrid;
 import org.jzy3d.plot3d.primitives.Scatter;
-import org.jzy3d.plot3d.primitives.Shape;
 import org.jzy3d.plot3d.rendering.canvas.Quality;
 
 import javax.swing.*;
@@ -91,8 +85,8 @@ public class AtomApp extends JFrame {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseDragged(e);
-                float dx = (float) toRadians(signum(e.getX() - x));
-                float dy = (float) toRadians(signum(e.getY() - y));
+                float dx = (float) toRadians(2*signum(e.getX() - x));
+                float dy = (float) toRadians(2*signum(e.getY() - y));
                 x = e.getX();
                 y = e.getY();
                 txtResult.setText(x + ", " + y + ";      " + dx + ", " + dy);
