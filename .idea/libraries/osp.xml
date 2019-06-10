@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="JavaPlot">
+  <library name="osp">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/JavaPlot.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/osp.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

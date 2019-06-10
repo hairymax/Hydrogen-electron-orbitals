@@ -8,8 +8,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="commons-math3-3.6.1" level="project" />
-    <orderEntry type="library" name="JavaPlot" level="project" />
     <orderEntry type="library" name="jzy3d-api-1.0.3-SNAPSHOT" level="project" />
     <orderEntry type="library" name="jogamp-fat" level="project" />
+    <orderEntry type="library" name="osp" level="project" />
   </component>
 </module>

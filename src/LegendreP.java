@@ -20,15 +20,15 @@ This license does not grant permission for use in any commercial product.
 
 */
 
-class Legendre {
+class LegendreP {
     private int l;
     private int m;
 
-    public Legendre(int l, int m){
+    public LegendreP(int l, int m){
         this.l=l;
         this.m=m;
     }
-    public Legendre(){
+    public LegendreP(){
 	l=0;
 	m=0;
     }
@@ -66,7 +66,7 @@ class Legendre {
 	            Math.pow((1-u*u),0.5*(double)(m));
 	    }
 	    if (l!=m) {
-	        for (int k=m;k<l;k++) {
+	        for (int k=m; k<l; k++) {
 	            next = ((double)(2*k+1)*u*current -
                     (double)(k+m)*last)/(k+1-m);
                 last=current;

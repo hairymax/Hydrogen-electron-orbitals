@@ -21,6 +21,9 @@ This license does not grant permission for use in any commercial product.
 */
 
 import org.apache.commons.math3.complex.*;
+//import org.opensourcephysics.numerics.specialfunctions.*;
+import org.opensourcephysics.numerics.Function;
+import org.opensourcephysics.numerics.specialfunctions.Legendre;
 
 class SphericalHarmonic {
     private int l;
@@ -52,15 +55,15 @@ class SphericalHarmonic {
     }
     public Complex eval(double theta, double phi){
         int absm=Math.abs(m);
-        double sign;
-        if (absm%2==1) sign=-1.0;
-        else sign=1.0;
-        Legendre P = new Legendre(l,absm);
-        Complex retval = new Complex(Math.cos((double)absm*phi),Math.sin((double)absm*phi));
-        double factor=sign*
+        double sign = ((absm)%2==1)? -1.0 : 1.0;
+        Function P = Legendre.getAssociatedFunction(l, absm);
+        //LegendreP P = new LegendreP(l, absm);
+        Complex retval = new Complex(Math.cos((double)m*phi), Math.sin((double)m*phi));
+        double factor = sign*
             Math.sqrt((double)(2*l+1)/(4.0*Math.PI)*
             MathLib.factorial(l-absm)/MathLib.factorial(l+absm))*
-            P.eval(Math.cos(theta));
+            P.evaluate(Math.cos(theta));
+            //P.eval(Math.cos(theta));
         retval=retval.multiply(factor);
         
         if (m<0) retval = retval.conjugate().multiply(sign);
