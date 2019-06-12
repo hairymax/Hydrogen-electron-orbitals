@@ -25,6 +25,8 @@ import org.apache.commons.math3.complex.*;
 import org.opensourcephysics.numerics.Function;
 import org.opensourcephysics.numerics.specialfunctions.Legendre;
 
+import static org.opensourcephysics.numerics.Integral.simpson;
+
 class SphericalHarmonic {
     private int l;
     private int m;
@@ -53,21 +55,55 @@ class SphericalHarmonic {
     public int getM(){
         return m;
     }
+
     public Complex eval(double theta, double phi){
         int absm=Math.abs(m);
         double sign = ((absm)%2==1)? -1.0 : 1.0;
         Function P = Legendre.getAssociatedFunction(l, absm);
-        //LegendreP P = new LegendreP(l, absm);
         Complex retval = new Complex(Math.cos((double)m*phi), Math.sin((double)m*phi));
         double factor = sign*
             Math.sqrt((double)(2*l+1)/(4.0*Math.PI)*
             MathLib.factorial(l-absm)/MathLib.factorial(l+absm))*
             P.evaluate(Math.cos(theta));
-            //P.eval(Math.cos(theta));
         retval=retval.multiply(factor);
         
         if (m<0) retval = retval.conjugate().multiply(sign);
 
         return retval;
+    }
+
+    private Function abs2Аzimuth(double phi){
+        Function Yphi = new Function() {
+            @Override
+            public double evaluate(double theta) {
+                double absYphi = eval(theta,phi).abs();
+                return absYphi*absYphi;
+            }
+        };
+        return Yphi;
+    }
+    private Function abs2Zenith(double theta){
+        Function Ytheta = new Function() {
+            @Override
+            public double evaluate(double phi) {
+                double absTheta = eval(theta,phi).abs();
+                return absTheta*absTheta*Math.sin(theta);
+            }
+        };
+        return Ytheta;
+    }
+
+    public double evalProbability(double startTheta, double finalTheta, double startPhi, double finalPhi, double step){
+        Function intAzimuth = new Function() {
+            @Override
+            public double evaluate(double theta) {
+                int splits_phi = (int) Math.round( (finalPhi-startPhi) / step );
+                splits_phi += (splits_phi%2==1) ? 1 : 0;
+                return simpson(abs2Zenith(theta),startPhi,finalPhi,splits_phi);
+            }
+        };
+        int splits_theta = (int) Math.round( (finalTheta-startTheta) / step );
+        splits_theta += (splits_theta%2==1) ? 1 : 0;
+        return simpson(intAzimuth,startTheta,finalTheta,splits_theta);
     }
 }
