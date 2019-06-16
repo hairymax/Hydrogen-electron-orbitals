@@ -40,7 +40,6 @@ public class AtomApp extends JFrame {
                 }
             }
         };
-        pnlImg.setMinimumSize(new Dimension(313,329));
         pnlImg.setLayout(new BorderLayout());
         pnlImg.add(pnl);
 
