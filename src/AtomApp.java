@@ -17,7 +17,7 @@ public class AtomApp extends JFrame {
     public AtomApp() {
         super("Атом Водорода");      // заголовок окна
         setContentPane(this.pnlMain); // область с содержимым формы (панель pnlMain)
-        setBounds(100, 100, 100, 100);    // размер и положение окна
+        setBounds(50, 50, 100, 100);    // размер и положение окна
         // при закрытии окна EXIT_ON_CLOSE завершит приложение (процесс)
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

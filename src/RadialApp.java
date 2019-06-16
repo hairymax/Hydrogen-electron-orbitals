@@ -163,7 +163,7 @@ public class RadialApp extends JFrame {
     public RadialApp() {
         super("Радиальная вероятность");      // заголовок окна
         setContentPane(this.pnlMain); // область с содержимым формы (панель pnlMain)
-        setBounds(-1000, 100, 800, 800);    // размер и положение окна
+        setBounds(100, 100, 850, 850);    // размер и положение окна
 
         // панель графика
         pnlChart.setPreferredSize(new Dimension(600, 600)); // размер по умолчанию для графика
