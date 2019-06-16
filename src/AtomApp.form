@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="AtomApp">
+  <grid id="27dc6" binding="pnlMain" layout-manager="GridLayoutManager" row-count="7" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="10" left="10" bottom="20" right="10"/>
+    <constraints>
+      <xy x="6" y="16" width="741" height="535"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="5ffed" class="javax.swing.JLabel" binding="lblName">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="28" style="1"/>
+          <text value="Атом водорода"/>
+        </properties>
+      </component>
+      <component id="78298" class="javax.swing.JButton" binding="btnStartRadial">
+        <constraints>
+          <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="50"/>
+            <preferred-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-6579201"/>
+          <font size="20"/>
+          <foreground color="-14803426"/>
+          <text value="Радиальная вероятность"/>
+        </properties>
+      </component>
+      <component id="8c191" class="javax.swing.JButton" binding="btnStartSpherical">
+        <constraints>
+          <grid row="6" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="50"/>
+            <preferred-size width="-1" height="50"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-6553701"/>
+          <font size="20"/>
+          <foreground color="-14803426"/>
+          <text value="Угловая вероятность"/>
+        </properties>
+      </component>
+      <component id="a13ea" class="javax.swing.JSeparator">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="40"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font style="0"/>
+        </properties>
+      </component>
+      <component id="7e23f" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <font size="16"/>
+          <text value="Запустите необходимый модуль"/>
+        </properties>
+      </component>
+      <grid id="b9558" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+        <margin top="0" left="0" bottom="0" right="0"/>
+        <constraints>
+          <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="20"/>
+          </grid>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children/>
+      </grid>
+      <component id="e813a" class="javax.swing.JButton" binding="btnOpenBook">
+        <constraints>
+          <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="-1" height="40"/>
+            <preferred-size width="-1" height="40"/>
+          </grid>
+        </constraints>
+        <properties>
+          <background color="-1"/>
+          <enabled value="true"/>
+          <font size="18"/>
+          <foreground color="-12369085"/>
+          <hideActionText value="false"/>
+          <text value="Открыть методические указания"/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
