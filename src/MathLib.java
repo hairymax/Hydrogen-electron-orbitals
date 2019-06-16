@@ -22,6 +22,20 @@ This license does not grant permission for use in any commercial product.
 */
 
 public class MathLib {
+    public static double Laguerre(int n, int a, double x){
+        double Lprev = 1.;
+        double Lcur = 1. + a - x;
+        double Ln;
+        if (n==0) Lcur = Lprev;
+        else if (n!=1) {
+            for (int i = 2; i<=n; i++){
+                Ln = ( (2*i+1+a-x)*Lcur - (i+a)*Lprev ) / (i+1);
+                Lprev = Lcur;
+                Lcur = Ln;
+            }
+        }
+        return Lcur;
+    }
 
     public static double niceNumber ( double x, boolean round) {
         int exp;

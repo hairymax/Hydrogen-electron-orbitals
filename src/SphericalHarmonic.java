@@ -21,7 +21,6 @@ This license does not grant permission for use in any commercial product.
 */
 
 import org.apache.commons.math3.complex.*;
-//import org.opensourcephysics.numerics.specialfunctions.*;
 import org.opensourcephysics.numerics.Function;
 import org.opensourcephysics.numerics.specialfunctions.Legendre;
 
