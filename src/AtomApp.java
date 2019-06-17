@@ -7,7 +7,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-
 public class AtomApp extends JFrame {
     private JPanel pnlMain;
     private JLabel lblName;

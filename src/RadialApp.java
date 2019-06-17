@@ -108,7 +108,7 @@ public class RadialApp extends JFrame {
         if (chbProb.isSelected()) {
             serie2d.setColor(Color.BLUE);
             for (int i=0; i<=steps; i++) {
-                double R = abs(i-li)*RPsi(n,l,abs((i-li)*h));
+                double R = abs(i-li)*h*RPsi(n,l,abs((i-li)*h));
                 serie2d.add((i-li)*h, R*R);
             }
         } else {
@@ -172,10 +172,8 @@ public class RadialApp extends JFrame {
         // добавление квантовых чисел n
         for (int i = 1; i <= 10; i++) cbn.addItem(i);
         cbn.setSelectedItem(1);
-        cbl.addItem(0);
-        cbl.setSelectedItem(0);
-        cbm.addItem(0);
-        cbm.setSelectedItem(0);
+        cbl.addItem(0); cbl.setSelectedItem(0);
+        cbm.addItem(0); cbm.setSelectedItem(0);
 
         xmax = (double)sldXmax.getValue();
         txtXmax.setText(xmax+"");
