@@ -4,8 +4,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.net.URL;
+import java.net.URISyntaxException;
+import java.io.*;
 
 public class AtomApp extends JFrame {
     private JPanel pnlMain;
@@ -17,8 +18,6 @@ public class AtomApp extends JFrame {
     private SphericalApp sapp = new SphericalApp();
     private RadialApp rapp = new RadialApp();
     private BufferedImage image;
-
-
 
     public AtomApp() {
         super("Атом Водорода");      // заголовок окна
@@ -32,7 +31,7 @@ public class AtomApp extends JFrame {
             public void paint(Graphics g) {
                 super.paint(g);
                 try {
-                    image = ImageIO.read(new File("atom.png"));
+                    image = ImageIO.read(getFileFromResourceAsStream("atom.png"));//new File("res/atom.png"));
                     g.drawImage(image,10,0, 313,329,this);
                 } catch (IOException ex) {
                     // handle exception...
@@ -54,22 +53,47 @@ public class AtomApp extends JFrame {
             }
         });
 
-        btnOpenBook.addActionListener(new ActionListener() {
+        /*btnOpenBook.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {
                 try {
-                    File file = new File("book.pdf");
+                    File file = getFileFromResource("book.pdf");//new File("res/book.pdf");
                     if (file.exists()) Desktop.getDesktop().open(file);
                     else System.out.println("Файл не найден по указанному пути -> "+ file.getAbsolutePath());
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
-        });
+        });*/
     }
 
     public static void main(String[] args) { // основной метод - main, обязателен
         AtomApp app = new AtomApp();    // создаем экземпляр приложения
         app.setVisible(true);   // запуск приложения
         app.pack();             // автоматическая компоновка элементов формы
+    }
+
+    private File getFileFromResource(String fileName) throws URISyntaxException{
+        ClassLoader classLoader = getClass().getClassLoader();
+        URL resource = classLoader.getResource(fileName);
+        if (resource == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            // failed if files have whitespaces or special characters
+            return new File(resource.getFile());
+           // return new File(resource.toURI());
+        }
+    }
+
+    private InputStream getFileFromResourceAsStream(String fileName) {
+        // The class loader that loaded the class
+        ClassLoader classLoader = getClass().getClassLoader();
+        InputStream inputStream = classLoader.getResourceAsStream(fileName);
+        // the stream holding the file content
+        if (inputStream == null) {
+            throw new IllegalArgumentException("file not found! " + fileName);
+        } else {
+            return inputStream;
+        }
+
     }
 }
