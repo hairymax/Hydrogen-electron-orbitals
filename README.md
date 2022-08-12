@@ -20,6 +20,8 @@ The application consists of two modules for calculating different components of 
 - `osp` - [Open Source Physics library](https://www.compadre.org/osp/index.cfm)  
   Solving the Schrödinger equation
 
+`atom.jar` - ready to use app
+
 ## Demo screenshots
 
 ### Main window
